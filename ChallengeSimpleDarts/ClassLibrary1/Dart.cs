@@ -13,19 +13,20 @@ namespace Darts
         public bool IsDoubleBand { get; set; }
         public bool IsTripleBand { get; set; }
         public bool IsBullseye { get; set; }
+        public Random RandomNumber { get; set; }
 
         public Dart(Random random)
         {
-            Random randomNumber = random;
+            RandomNumber = random;
         }
 
-        public void Throw(Random randomNumber)
+        public void Throw()
         {
             IsDoubleBand = false;
             IsTripleBand = false;
             IsBullseye = false;
-            int greaterDartPosition = randomNumber.Next(0, 20);
-            int doubleRingOrTripleRing = randomNumber.Next(0, 100);
+            int greaterDartPosition = RandomNumber.Next(0, 20);
+            int doubleRingOrTripleRing = RandomNumber.Next(0, 100);
 
             if (greaterDartPosition >= 1)
             { 
