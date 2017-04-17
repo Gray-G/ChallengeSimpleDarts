@@ -13,11 +13,12 @@ namespace Darts
         public bool IsDoubleBand { get; set; }
         public bool IsTripleBand { get; set; }
         public bool IsBullseye { get; set; }
-        public Random RandomNumber { get; set; }
+        private Random _random;
+
 
         public Dart(Random random)
         {
-            RandomNumber = random;
+            _random = random;
         }
 
         public void Throw()
@@ -25,14 +26,14 @@ namespace Darts
             IsDoubleBand = false;
             IsTripleBand = false;
             IsBullseye = false;
-            int dartPosition = RandomNumber.Next(0, 20);
-            int doubleRingOrTripleRing = RandomNumber.Next(0, 100);
+            int dartPosition = _random.Next(0, 21); // Generate's dart's greater position
+            int doubleRingOrTripleRing = _random.Next(0, 101); // Generate dart's position in double or triple rings
 
-            // Generate dart's position on board, including whether in double or triple ring
-            generateDartPosition(dartPosition, doubleRingOrTripleRing);
+            // Read dart's position on board, including whether in double or triple ring
+            readDartPosition(dartPosition, doubleRingOrTripleRing);
         }
 
-        private void generateDartPosition(int dartPosition, int doubleRingOrTripleRing)
+        private void readDartPosition(int dartPosition, int doubleRingOrTripleRing)
         {
             if (dartPosition >= 1) // It's not a bullseye
                 handleNonBullseye(doubleRingOrTripleRing);
@@ -55,7 +56,7 @@ namespace Darts
         {
             IsBullseye = true;
 
-            if (doubleRingOrTripleRing <= 5) // 5% chance of landing in inner band (triple score)
+            if (doubleRingOrTripleRing <= 5) // 5% chance of landing in inner band (+50 pts), else assume outer band (+25 pts)
                 IsTripleBand = true;
         }
 

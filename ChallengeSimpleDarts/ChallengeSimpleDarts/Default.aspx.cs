@@ -18,47 +18,24 @@ namespace ChallengeSimpleDarts
         protected void okButton_Click(object sender, EventArgs e)
         {
             Random random = new Random(); // random be passed into Dart() constructor to generate dart position
-            Dart playerOneDartGame = new Dart(random);
-            Dart playerTwoDartGame = new Dart(random);
-            bool isPlayerOneWinner = false; // isPlayerOneWinner will hold state of game's winner
+            Dart playerOnesDart = new Dart(random);
+            Dart playerTwosDart = new Dart(random);
+            Game game = new Game();
 
             // Loop until a player's score reaches 300
-            playGame(playerOneDartGame, playerTwoDartGame);
-
-            // Check winner, store boolean result in isPlayerOneWinner
-            isPlayerOneWinner = checkWinner(playerOneDartGame, playerTwoDartGame);
+            game.PlayGame(playerOnesDart, playerTwosDart);
 
             // Update resultLabel server control with results
-            displayResults(playerOneDartGame, playerTwoDartGame, isPlayerOneWinner);
+            displayResults(playerOnesDart, playerTwosDart);
         }
 
-        private void playGame(Dart playerOneDartGame, Dart playerTwoDartGame)
+        private void displayResults(Dart playerOnesDart, Dart playerTwosDart)
         {
-            while (playerOneDartGame.Score < 300 && playerTwoDartGame.Score < 300)
-            {
-                playerOneDartGame.Throw();
-                playerTwoDartGame.Throw();
-            }
+            resultLabel.Text = $"<p>Player 1's Score: {playerOnesDart.Score}</p>" +
+            $"<p>Players 2's Score: {playerTwosDart.Score}</p>";
 
-            return;
-        }
-
-        private bool checkWinner(Dart playerOneDartGame, Dart playerTwoDartGame)
-        {
-            if (playerOneDartGame.Score > playerTwoDartGame.Score)
-                return true;
-            else return false;
-        }
-
-        private void displayResults(Dart playerOneDartGame, Dart playerTwoDartGame, bool isPlayerOneWinner)
-        {
-            resultLabel.Text = $"<p>Player 1's Score: {playerOneDartGame.Score}</p>" +
-            $"<p>Players 2's Score: {playerTwoDartGame.Score}</p>";
-
-            if (isPlayerOneWinner)
-                resultLabel.Text += $"<p>Player 1 wins!</p>";
-            // else playerTwo wins
-            else resultLabel.Text += $"<p>Player 2 wins!</p>";
+            resultLabel.Text += $"Winner: " + 
+                (playerOnesDart.Score > playerTwosDart.Score ? "Player 1" : "Player 2");
         }
     }
 }
