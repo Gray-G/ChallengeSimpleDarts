@@ -8,20 +8,8 @@ namespace ChallengeSimpleDarts
 {
     public class Game
     {
-        private Player _player1;
-        private Player _player2;
-
         public Game()
         {
-        }
-
-        public Game(string player1Name, string player2Name)
-        {
-            _player1 = new Player();
-            _player1.Name = player1Name;
-
-            _player2 = new Player();
-            _player2.Name = player2Name;
         }
 
         public void PlayGame(Dart playerOnesDart, Dart playerTwosDart)
